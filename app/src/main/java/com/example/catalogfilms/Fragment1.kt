@@ -25,19 +25,11 @@ class Fragment1 : Fragment() {
         return binding.root
 
 
-
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val signInLauncher = registerForActivityResult(
-            FirebaseAuthUIActivityResultContract()
-        ) { res ->
-            this.onSignInResult(res)
-        }
-        }
+        super.onViewCreated(view, savedInstanceState)}
+
 
 
 
