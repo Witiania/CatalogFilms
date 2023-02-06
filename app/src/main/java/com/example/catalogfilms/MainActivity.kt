@@ -2,10 +2,6 @@ package com.example.catalogfilms
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-
 
 
 class MainActivity : AppCompatActivity() {
