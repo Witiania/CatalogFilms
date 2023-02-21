@@ -1,4 +1,4 @@
-package com.example.catalogfilms
+package com.example.catalogfilms.presentation.screens.film_details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.catalogfilms.adapter.CustomAdapter
+import com.example.catalogfilms.presentation.adapter.CustomAdapter
 import com.example.catalogfilms.databinding.Fragment1Binding
 import com.example.catalogfilms.databinding.Fragment2Binding
 
@@ -30,15 +30,6 @@ class Fragment2 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        val data = ArrayList<MainData>()
-        for(i  in 1..10){
-            data.add(MainData("name"+i, "age"+i,R.drawable.android))
-        }
-        adapter = CustomAdapter(data)
-        recyclerView.adapter = adapter
 
     }
 

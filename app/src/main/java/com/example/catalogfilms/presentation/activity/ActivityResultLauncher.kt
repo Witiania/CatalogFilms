@@ -1,7 +1,9 @@
-package com.example.catalogfilms
+package com.example.catalogfilms.presentation.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.catalogfilms.data.models.firebase.User
 import com.example.catalogfilms.databinding.ActivityResultLauncherBinding
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
@@ -17,7 +19,7 @@ class ActivityResultLauncher : AppCompatActivity() {
     lateinit var binding: ActivityResultLauncherBinding
     private lateinit var database: DatabaseReference
 
-    //Регистрация
+    //Запуск самого окна реги регистрации с ранее созданным интентом: signInIntent
     private val signInLauncher = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
     ) { res ->
@@ -51,6 +53,11 @@ class ActivityResultLauncher : AppCompatActivity() {
             .addOnCompleteListener {
             }
 
+        if (getIntent().getBooleanExtra("LOGOUT", false))
+        {
+            finish();
+            System.exit(0);
+        }
     }
 
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
@@ -59,8 +66,10 @@ class ActivityResultLauncher : AppCompatActivity() {
             // Successfully signed in
             val authUser = FirebaseAuth.getInstance().currentUser
             val user = User(authUser?.email.toString(), authUser?.uid.toString())
-
             database.child("users").child(user.uid).setValue(user)
+
+            val intentToMainActivity = Intent(this, MainActivity::class.java)
+            startActivity(intentToMainActivity)
             // ...
         } else {
             // Sign in failed. If response is null the user canceled the

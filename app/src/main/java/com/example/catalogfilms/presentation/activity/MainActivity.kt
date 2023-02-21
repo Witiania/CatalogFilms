@@ -1,7 +1,8 @@
-package com.example.catalogfilms
+package com.example.catalogfilms.presentation.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.catalogfilms.R
 
 
 class MainActivity : AppCompatActivity() {
