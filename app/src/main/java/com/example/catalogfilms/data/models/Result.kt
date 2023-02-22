@@ -1,6 +1,6 @@
 package com.example.catalogfilms.data.models
 
-data class Result2(
+data class Result(
     val adult: Boolean,
     val backdrop_path: String,
     val genre_ids: List<Int>,
@@ -15,4 +15,4 @@ data class Result2(
     val video: Boolean,
     val vote_average: Double,
     val vote_count: Int
-)
+):java.io.Serializable

@@ -11,7 +11,7 @@ class Retrofit {
         HttpLoggingInterceptor().setLevel(
             HttpLoggingInterceptor.Level.BODY)).build()
 
-       private var BASE_URL = "https://api.nytimes.com/"
+       private var BASE_URL = "https://api.themoviedb.org/"
 
         fun getMoviesApiInterface () = Retrofit.Builder()
         .client(client)

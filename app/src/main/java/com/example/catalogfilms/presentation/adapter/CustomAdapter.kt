@@ -11,9 +11,10 @@ import com.example.catalogfilms.R
 import com.squareup.picasso.Picasso
 import com.example.catalogfilms.data.models.Result
 import com.example.catalogfilms.databinding.ItemBinding
+import com.example.catalogfilms.presentation.screens.list_films.Fragment1
 
 
-class CustomAdapter () : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter (private val listener: MovieClickListener) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     private var mList: List<Result> = listOf()
 
@@ -35,7 +36,7 @@ class CustomAdapter () : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     // binds the list items to a view
     @SuppressLint("ResourceType")
     override fun onBindViewHolder(holder: ViewHolder,position: Int) { // holder это экземпляр ViewHolder
-        holder.bind(mList[position]) // вызываем функцию bind (наполнение холдера), и указываем позицию
+        holder.bind(mList[position],listener) // вызываем функцию bind (наполнение холдера), и указываем позицию
     }
 
     // return the number of the items in the list
@@ -46,14 +47,25 @@ class CustomAdapter () : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     // Holds the views for adding it to image and text
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) { // Отвечает за прорисовку, одного элемента (карточки)
         private val binding = ItemBinding.bind(view)
-        fun bind(data: Result) {
-            Picasso.get().load(data.multimedia.src).into(binding.itemImage)
-            binding.itemName.text = data.display_title
-            binding.itemRating.text = data.mpaa_rating
+        fun bind(data: Result,listener: MovieClickListener) {
+
+//            Picasso.get().load(data.backdrop_path.jpg).into(binding.itemImg)
+          Picasso.get().load("https://image.tmdb.org/t/p/w600_and_h900_bestv2${data.poster_path}").into(binding.itemImg)
+            binding.itemTvTitle.text = data.title
+            binding.itemTvDate.text = data.release_date
+
+
+            binding.item.setOnClickListener{
+                listener.onClick(data)
+            }
         }
 //        val imageView: ImageView = itemView.findViewById(R.id.item_image)
 //        val ratingView: TextView = itemView.findViewById(R.id.item_rating)
 //        val nameView:TextView = itemView.findViewById(R.id.item_name)
 //    }
+
+    }
+    interface MovieClickListener{
+        fun onClick(movieDetails:Result)
     }
 }
