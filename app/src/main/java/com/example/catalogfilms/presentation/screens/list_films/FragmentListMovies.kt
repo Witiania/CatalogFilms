@@ -1,32 +1,26 @@
 package com.example.catalogfilms.presentation.screens.list_films
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.catalogfilms.R
 import com.example.catalogfilms.data.models.Result
-import com.example.catalogfilms.data.models.ThemoviedbResponse
 import com.example.catalogfilms.presentation.adapter.CustomAdapter
 import com.example.catalogfilms.databinding.Fragment1Binding
 
 import com.example.catalogfilms.data.retrofit.Retrofit
-import com.example.catalogfilms.presentation.activity.MainActivity
-import com.example.catalogfilms.presentation.screens.film_details.Fragment2
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class Fragment1 : Fragment(), CustomAdapter.MovieClickListener {
+@AndroidEntryPoint
+class FragmentListMovies : Fragment(), CustomAdapter.MovieClickListener {
 
 
     private var _binding: Fragment1Binding? = null
@@ -34,6 +28,8 @@ class Fragment1 : Fragment(), CustomAdapter.MovieClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private var adapter = CustomAdapter(this)
+
+    private val viewModel:ListMoviesViewModel by viewModels()
 
 
 
@@ -55,11 +51,15 @@ class Fragment1 : Fragment(), CustomAdapter.MovieClickListener {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
 
-        lifecycleScope.launchWhenStarted { //Нельзя делать на главном потоке, выделяем во второстепенном потоке
-            val moviesAPI = Retrofit().getMoviesApiInterface().getMovies()
-                .body()!! // так как в разных классах, create не нужен
-            adapter.submitList(moviesAPI.results)
-        }
+//        lifecycleScope.launchWhenStarted { //Нельзя делать на главном потоке, выделяем во второстепенном потоке
+//            val moviesAPI = Retrofit().getMoviesApiInterface().getMovies()
+//                .body()!! // так как в разных классах, create не нужен
+//            adapter.submitList(moviesAPI.results)
+//        }
+
+       viewModel.listMoviesLiveData.observe(viewLifecycleOwner){
+           adapter.submitList(it.results)
+       }
 
     }
 //        moviesAPI.enqueue(object: Callback<List<KinopoiskData>>{

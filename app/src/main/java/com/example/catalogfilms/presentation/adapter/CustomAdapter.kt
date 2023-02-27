@@ -4,14 +4,11 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.catalogfilms.R
 import com.squareup.picasso.Picasso
 import com.example.catalogfilms.data.models.Result
 import com.example.catalogfilms.databinding.ItemBinding
-import com.example.catalogfilms.presentation.screens.list_films.Fragment1
 
 
 class CustomAdapter (private val listener: MovieClickListener) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
